@@ -1,0 +1,83 @@
+body {
+  background-color: #121212;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  text-align: center;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* 🔍 Barra de búsqueda con imagen de fondo que cubre todo arriba */
+.search-container {
+  background-image: url("https://th.bing.com/th/id/OIP.wjdhNGRGdxWg3mk9PTaxKwHaEV?rs=1&pid=ImgDetMain.jpg"); /* Asegúrate de que la imagen esté en `public/images` */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px; /* Ajusta la altura según lo necesites */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-input {
+  width: 80%;
+  max-width: 600px;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  text-align: center;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-input:focus {
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+}
+
+/* 🎬 Categorías */
+.category {
+  margin: 30px 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* 🎞️ Lista de películas */
+.movies-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-poster {
+  width: 160px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-poster:hover {
+  transform: scale(1.1);
+}
+
+/* 🚨 Mensaje cuando no hay resultados */
+.no-results {
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
+}
