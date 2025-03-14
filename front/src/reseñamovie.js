@@ -1,102 +1,99 @@
-// Crear elementos del DOM
-const body = document.body;
+import React, { useState } from "react";
+import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 
-// Crear el header
-const header = document.createElement("header");
-const img = document.createElement("img");
-img.src = "abismo-secreto.jpg";
-img.alt = "El Abismo Secreto";
-header.appendChild(img);
+const MovieReseña = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [review, setReview] = useState("");
 
-// Crear la sección de información
-const infoSection = document.createElement("section");
-infoSection.classList.add("info");
+    const verTrailer = () => {
+        window.open("https://youtu.be/3QbfHIKyd4I?si=wojcTiOiziNSsiq3", "_blank");
+    };
 
-const title = document.createElement("h1");
-title.textContent = "El abismo secreto";
+    const mostrarFormulario = () => {
+        setShowModal(true);
+    };
 
-const releaseDate = document.createElement("p");
-releaseDate.innerHTML = "<strong>Fecha de estreno:</strong> 14 de febrero de 2025";
+    const cerrarFormulario = () => {
+        setShowModal(false);
+    };
 
-const description = document.createElement("p");
-description.textContent = "Mandan a dos operativos de élite (Anya Taylor-Joy y Miles Teller) a vigilar lados opuestos de un misterioso abismo y allí intiman desde la distancia, pero deberán aunar fuerzas para sobrevivir al mal que esconde el abismo.";
+    const guardarResena = () => {
+        if (review.trim() !== "") {
+            alert(`Reseña guardada: ${review}`);
+            setReview(""); // Limpiar el campo de texto
+            cerrarFormulario(); // Cerrar el formulario después de guardar
+        } else {
+            alert("Escribe una reseña antes de guardar.");
+        }
+    };
 
-infoSection.appendChild(title);
-infoSection.appendChild(releaseDate);
-infoSection.appendChild(description);
+    return (
+        <Container className="mt-4">
+            {/* Header */}
+            <header className="mb-4 text-center">
+                <img
+                    src="abismo-secreto.jpg"
+                    alt="El Abismo Secreto"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                />
+            </header>
 
-// Crear la sección de acciones (botones)
-const actionsSection = document.createElement("section");
-actionsSection.classList.add("acciones");
+            {/* Información */}
+            <Card className="mb-4">
+                <Card.Body>
+                    <Card.Title>El Abismo Secreto</Card.Title>
+                    <Card.Text>
+                        <strong>Fecha de estreno:</strong> 14 de febrero de 2025
+                    </Card.Text>
+                    <Card.Text>
+                        Mandan a dos operativos de élite (Anya Taylor-Joy y Miles Teller) a
+                        vigilar lados opuestos de un misterioso abismo y allí intiman desde
+                        la distancia, pero deberán aunar fuerzas para sobrevivir al mal que
+                        esconde el abismo.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
 
-const trailerButton = document.createElement("button");
-trailerButton.textContent = "Ver Tráiler";
-trailerButton.addEventListener("click", verTrailer);
+            {/* Botones de acción */}
+            <div className="d-flex justify-content-center mb-4">
+                <Button variant="primary" className="me-2" onClick={verTrailer}>
+                    Ver Tráiler
+                </Button>
+                <Button variant="secondary" onClick={mostrarFormulario}>
+                    Agregar Reseña
+                </Button>
+            </div>
 
-const reviewButton = document.createElement("button");
-reviewButton.textContent = "Agregar Reseña";
-reviewButton.addEventListener("click", mostrarFormulario);
+            {/* Modal para agregar reseña */}
+            <Modal show={showModal} onHide={cerrarFormulario}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Escribe tu reseña</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Tu reseña</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={4}
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                                placeholder="Escribe aquí tu reseña..."
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={cerrarFormulario}>
+                        Cerrar
+                    </Button>
+                    <Button variant="primary" onClick={guardarResena}>
+                        Guardar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Container>
+    );
+};
 
-actionsSection.appendChild(trailerButton);
-actionsSection.appendChild(reviewButton);
-
-// Crear el modal de reseña
-const modal = document.createElement("div");
-modal.id = "formularioResena";
-modal.classList.add("modal");
-
-const modalContent = document.createElement("div");
-modalContent.classList.add("modal-contenido");
-
-const closeButton = document.createElement("span");
-closeButton.classList.add("cerrar");
-closeButton.innerHTML = "&times;";
-closeButton.addEventListener("click", cerrarFormulario);
-
-const modalTitle = document.createElement("h3");
-modalTitle.textContent = "Escribe tu reseña";
-
-const textarea = document.createElement("textarea");
-textarea.id = "resenaTexto";
-textarea.placeholder = "Escribe aquí tu reseña...";
-
-const saveButton = document.createElement("button");
-saveButton.textContent = "Guardar";
-saveButton.addEventListener("click", guardarResena);
-
-modalContent.appendChild(closeButton);
-modalContent.appendChild(modalTitle);
-modalContent.appendChild(textarea);
-modalContent.appendChild(saveButton);
-modal.appendChild(modalContent);
-
-// Agregar todo al body
-body.appendChild(header);
-body.appendChild(infoSection);
-body.appendChild(actionsSection);
-body.appendChild(modal);
-
-// Funciones de los botones
-function verTrailer() {
-    window.open("https://youtu.be/3QbfHIKyd4I?si=wojcTiOiziNSsiq3", "_blank");
-}
-
-function mostrarFormulario() {
-    document.getElementById("formularioResena").style.display = "block";
-}
-
-function cerrarFormulario() {
-    document.getElementById("formularioResena").style.display = "none";
-}
-
-function guardarResena() {
-    let resena = document.getElementById("resenaTexto").value;
-
-    if (resena.trim() !== "") {
-        alert("Reseña guardada: " + resena);
-        document.getElementById("resenaTexto").value = ""; // Limpiar el campo de texto
-        cerrarFormulario(); // Cerrar el formulario después de guardar
-    } else {
-        alert("Escribe una reseña antes de guardar.");
-    }
-}
+export default MovieReseña
