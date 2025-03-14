@@ -6,7 +6,7 @@ import { createMovie, getAllMovies, getMovie, updateMovie, deleteMovie } from ".
 const router = express.Router()
 
 // Rutas de usuarios
-router.post("/users/create", createUser) // Crear un nuevo usuario
+router.post("/users/register", createUser) // Crear un nuevo usuario
 router.get("/users/get", getAllUsers) // Ver todos los usuarios
 router.put("/users/update/:id", updateUser) // Actualiza usuarios
 router.delete("/users/delete/:id", deleteUser) // Eliminar un usuario
